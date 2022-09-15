@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "551801095458",
+    "project_id": "myappibm-46ad2",
+    "storage_bucket": "myappibm-46ad2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551801095458:android:1182af279fd3b787ba917b",
+        "android_client_info": {
+          "package_name": "com.ibm.meuapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551801095458-k000ltckhmdn8ea44kr3g4iv393mi6au.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHikWXy8EZr3BmYHjd_bMlyirW7w6I__0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551801095458-k000ltckhmdn8ea44kr3g4iv393mi6au.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551801095458:android:b5de53fe4f04d451ba917b",
+        "android_client_info": {
+          "package_name": "com.ibm.myappibm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551801095458-k000ltckhmdn8ea44kr3g4iv393mi6au.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHikWXy8EZr3BmYHjd_bMlyirW7w6I__0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551801095458-k000ltckhmdn8ea44kr3g4iv393mi6au.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
