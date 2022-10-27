@@ -61,8 +61,7 @@ public class CadastroActivity extends AppCompatActivity {
                     if(senha.equals(senhaConf)){
                         salveUser(createdRequest());
 
-                        Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
-                        startActivity(intent);
+
 
                     }else {
                         alerta("As senhas não são indênticas!");
@@ -94,8 +93,10 @@ public class CadastroActivity extends AppCompatActivity {
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 }else {
-                    Toast.makeText(getApplicationContext(), "Falha no cadastro!", Toast.LENGTH_SHORT).show();
+                    dialog();
                 }
             }
 
@@ -126,5 +127,17 @@ public class CadastroActivity extends AppCompatActivity {
         etSenhaConf = findViewById(R.id.cadsConfSenha);
         btn_voltar = findViewById(R.id.btn_voltar);
 
+    }
+    private void dialog(){
+        new AlertDialog.Builder(CadastroActivity.this)
+                .setTitle("ATENÇÃO!")
+                .setMessage("Email já cadastrado!")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).setIcon(R.drawable.ic_alert)
+                .show();
     }
 }

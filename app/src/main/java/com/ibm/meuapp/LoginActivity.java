@@ -2,7 +2,6 @@ package com.ibm.meuapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,7 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.ibm.meuapp.data.RegisterUserRepository;
 import com.ibm.meuapp.data.remote.RegisterResponse;
-import com.ibm.meuapp.data.remote.UserLoginObject;
+import com.ibm.meuapp.data.remote.UserLogin;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,10 +44,6 @@ public class LoginActivity extends AppCompatActivity {
                 email = editeEmail.getText().toString();
                 senha = editeSenha.getText().toString();
 
-                SharedPreferences pref = getSharedPreferences("MySharedPref",MODE_PRIVATE);
-                String emailShared = pref.getString("email", null);
-                String senhaShared = pref.getString("senha", null);
-
 
                 if(TextUtils.isEmpty(email) || TextUtils.isEmpty(senha)){
                     new AlertDialog.Builder(LoginActivity.this)
@@ -76,18 +71,20 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-    public void login(String email, String password){
+    public void login(String email2, String password){
 
-            Call<RegisterResponse> registerResponseCall = RegisterUserRepository.getUserService().loginUsers(new UserLoginObject(email, password));
+            Call<RegisterResponse> registerResponseCall = RegisterUserRepository.getUserService().loginUsers(new UserLogin(email2, password));
+
             registerResponseCall.enqueue(new Callback <RegisterResponse>() {
                 @Override
                 public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                     if(response.isSuccessful()){
-                       // Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_LONG).show();
                         if (email.equals(response.body().getEmail()) && senha.equals(response.body().getPassword())){
                             Intent intent = new Intent(LoginActivity.this, TelaPrincipalActivity.class);
-                            intent.putExtra("KeyEmail", email);
-                            intent.putExtra("KeySenha", senha);
+                            String name = response.body().getName();
+                            String email = response.body().getEmail();
+                            intent.putExtra("keyName", name);
+                            intent.putExtra("keyEmail", email);
                             Toast.makeText(getApplicationContext(), "login realizado com sucesso!", Toast.LENGTH_SHORT).show();
                             startActivity(intent);
 
@@ -108,22 +105,13 @@ public class LoginActivity extends AppCompatActivity {
     private void dialog(){
         new AlertDialog.Builder(LoginActivity.this)
                 .setTitle("ATENÇÃO!")
-                .setMessage("Você não possui cadastro, deseja se cadastrar?")
-                .setPositiveButton("sim", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
-                        intent.putExtra("keyEmail", email);
-                        intent.putExtra("keySenha", senha);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+                .setMessage("Email ou senha incorretos!")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "Acesso negado!", Toast.LENGTH_LONG).show();
                     }
-                })
-                .setIcon(R.drawable.ic_alert)
+                }).setIcon(R.drawable.ic_alert)
                 .show();
     }
 }

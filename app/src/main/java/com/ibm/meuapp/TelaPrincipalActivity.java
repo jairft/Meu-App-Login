@@ -3,7 +3,6 @@ package com.ibm.meuapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 public class TelaPrincipalActivity extends AppCompatActivity {
 
-    private TextView nomeUsuario, emailUsuario, senhaUsuario;
     private Button bt_sair;
 
     @Override
@@ -19,13 +17,17 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
 
-        iniciarComponentes();
+        bt_sair = findViewById(R.id.bt_sair);
 
-        Intent intent = getIntent();
-        if(intent.getExtras() != null){
-            String name = intent.getStringExtra("name");
-            nomeUsuario.setText(name);
-        }
+        TextView  nomeUsuario = findViewById(R.id.textNomeUsuario);
+        TextView  emailUsuario = findViewById(R.id.textEmailUsusario);
+
+
+        String name = getIntent().getStringExtra("keyName");
+        String email = getIntent().getStringExtra("keyEmail");
+        nomeUsuario.setText(name);
+        emailUsuario.setText(email);
+
 
 
         bt_sair.setOnClickListener(new View.OnClickListener() {
@@ -39,11 +41,5 @@ public class TelaPrincipalActivity extends AppCompatActivity {
         });
     }
 
-    private void iniciarComponentes(){
-        nomeUsuario = findViewById(R.id.textNomeUsuario);
-        emailUsuario = findViewById(R.id.textEmailUsusario);
-        senhaUsuario = findViewById(R.id.txt_senhaUsuario);
-        bt_sair = findViewById(R.id.bt_sair);
-    }
 }
 
